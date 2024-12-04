@@ -1,0 +1,38 @@
+# CAP test-app
+*.db
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite-journal
+*.sql
+connection.properties
+default-*.json
+.cdsrc-private.json
+gen/
+node_modules/
+target/
+resources/
+dist/
+
+# Web IDE, App Studio
+.che/
+.gen/
+core
+
+# MTA
+*_mta_build_tmp
+*.mtar
+mta_archives/
+*.zip
+
+# Other
+.DS_Store
+*.orig
+*.log
+
+*.iml
+*.flattened-pom.xml
+
+# IDEs
+.vscode
+.idea

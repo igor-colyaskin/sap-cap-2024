@@ -1,0 +1,165 @@
+{
+  "xsappname": "test-app",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of the Capacity Portal application",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.FactoryUsr",
+      "description": "Factory User"
+    },
+    {
+      "name": "$XSAPPNAME.LOUsr",
+      "description": "LO User"
+    },
+    {
+      "name": "$XSAPPNAME.LOPICUsr",
+      "description": "LO PIC User"
+    },
+    {
+      "name": "$XSAPPNAME.SourcingUsr",
+      "description": "Sourcing User"
+    },
+    {
+      "name": "$XSAPPNAME.CPAdmin",
+      "description": "Capacity Portal Business Administrator"
+    },
+    {
+      "name": "$XSAPPNAME.GPSUsr",
+      "description": "Global Product Supply User"
+    },
+    {
+      "name": "$XSAPPNAME.requestor",
+      "description": "Requestor"
+    }
+  ],
+  "attributes": [
+    {
+      "name": "FACTORYID",
+      "description": "Factory Code",
+      "valueType": "string",
+      "valueRequired": true
+    },
+    {
+      "name" : "LOOFFICE",
+      "description" : "LO Office",
+      "valueType" : "string",
+      "valueRequired" : true
+    },
+    {
+      "name" : "DIVISION",
+      "description" : "Division",
+      "valueType" : "string",
+      "valueRequired" : true
+    },
+    {
+      "name": "ISLOPICUSR",
+      "description": "User is LOPIC",
+      "valueType": "string",
+      "valueRequired": true
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": [
+        "uaa.user"
+      ]
+    },
+    {
+      "name": "FactoryUserRole",
+      "description": "Factory User Role Template",
+      "scope-references": [
+        "$XSAPPNAME.FactoryUsr",
+        "$XSAPPNAME.requestor"
+      ],
+      "attribute-references": [
+        {
+          "name": "FACTORYID"
+        }
+      ]
+    },
+    {
+      "name": "LOUserRole",
+      "description": "LO User Role Template",
+      "scope-references": [
+        "$XSAPPNAME.LOUsr",
+        "$XSAPPNAME.requestor"
+      ],
+      "attribute-references": [
+        {
+          "name": "LOOFFICE"
+        }
+      ]
+    },
+    {
+      "name": "LOPICUserRole",
+      "description": "LO PIC User Role Template",
+      "scope-references": [
+        "$XSAPPNAME.LOPICUsr",
+        "$XSAPPNAME.requestor"
+      ],
+      "attribute-references": [
+        {
+          "name": "ISLOPICUSR",
+          "default-values" : ["true"]
+        }
+      ]
+    },
+    {
+      "name": "SourcingUserRole",
+      "description": "Sourcing User Role Template",
+      "scope-references": [
+        "$XSAPPNAME.SourcingUsr",
+        "$XSAPPNAME.requestor"
+      ],
+      "attribute-references": [
+        {
+          "name": "DIVISION"
+        }
+      ]
+    },
+    {
+      "name": "GPSUserRole",
+      "description": "Global Product Supply Role Template",
+      "scope-references": [
+        "$XSAPPNAME.GPSUsr",
+        "$XSAPPNAME.requestor"
+      ],
+      "attribute-references": [
+        {
+          "name": "DIVISION"
+        }
+      ]
+    },
+    {
+      "name": "CPAdminRole",
+      "description": "Capacity Portal Business Administrator Role Template",
+      "scope-references": [
+        "$XSAPPNAME.requestor",
+        "$XSAPPNAME.CPAdmin"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "PS_PPE_CP_Administrator",
+      "description": "Capacity Portal Business Administrator Role",
+      "role-template-references": [
+        "$XSAPPNAME.CPAdminRole"
+      ]
+    },
+    {
+      "name": "PS_PPE_CP_LOPIC",
+      "description": "Capacity Portal LOPIC Role",
+      "role-template-references": [
+        "$XSAPPNAME.LOPICUserRole"
+      ]
+    }
+  ],
+  "authorities-inheritance": false
+}

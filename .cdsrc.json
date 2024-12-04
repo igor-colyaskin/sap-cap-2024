@@ -1,0 +1,92 @@
+{
+    "requires": {
+        "auth": {
+            "kind": "basic",
+            "users": {
+                "admin": {
+                    "password": "password",
+                    "roles": [
+                        "Admin"
+                    ],
+                    "attr": {
+                        "POITEMCATASSIGN": "000000"
+                    }
+                },
+                "factory": {
+                    "password": "password",
+                    "roles": [
+                        "requestor",
+                        "FactoryUsr"
+                    ],
+                    "attr": {
+                        "familyName": "Mayers",
+                        "givenName": "Barbara",
+                        "FACTORYID": ["100001", "A1J001", "Q05001", "3JN001", "AK4003", "3JN002", "28L003", "28L002"]
+                    }
+                }
+            }
+        },
+        "identity_authentication_connectivity_ids": {
+            "kind": "rest",
+            "credentials": {
+                "destination": "Identity_Authentication_Connectivity_IDS"
+            }
+        },
+        "[development]": {
+            "db": {
+                "kind": "sqlite",
+                "credentials": {
+                    "url": "db.sqlite"
+                }
+            },
+            "identity_authentication_connectivity_ids": {
+                "impl": "packages/foundation/mocks/IASServiceMock.js"
+            }
+        },
+        "[hybrid]": {
+            "db": {
+                "kind": "hana-cloud",
+                "pool": {
+                    "acquireTimeoutMillis": 20000,
+                    "min": 0,
+                    "max": 1500,
+                    "fifo": false
+                }
+            },
+            "identity_authentication_connectivity_ids": {
+                "impl": false
+            }
+        },
+        "[production]": {
+            "db": "hana-cloud",
+            "auth": {
+                "kind": "xsuaa"
+            }
+        }
+    },
+    "log": {
+        "levels": {
+            "sqlite": "debug",
+            "hana": "debug"
+        }
+    },
+    "build": {
+        "target": "database/gen",
+        "tasks": [
+            {
+                "for": "hana",
+                "src": "database/db",
+                "dest": "./db",
+                "options": {
+                    "model": [
+                        "services.cds",
+                        "database/db/hana"
+                    ]
+                }
+            }
+        ]
+    },
+    "cov2ap": {
+        "plugin": false
+    }
+}

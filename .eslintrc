@@ -1,0 +1,36 @@
+{
+    "env": {
+        "node": true,
+        "es6": true,
+        "jest": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "globals": {
+        "SELECT": true,
+        "INSERT": true,
+        "UPSERT": true,
+        "UPDATE": true,
+        "DELETE": true,
+        "CREATE": true,
+        "DROP": true,
+        "cds": true,
+        "window": true,
+        "document": true,
+        "Promise": true,
+        "jQuery": true,
+        "sap": true,
+        "history": true
+    },
+    "rules": {
+        "no-console": "off",
+        "require-atomic-updates": "off",
+        "strict": [0, "global"],
+        "no-else-return": [0, "global"],
+        "no-undefined": [0, "global"],
+        "no-invalid-this": [0, "global"],
+        "array-bracket-newline": [0, "global"],
+        "max-len": [0, "0"]
+    }
+}

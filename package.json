@@ -1,0 +1,40 @@
+{
+    "name": "@test-app/monorepo",
+    "version": "1.0.15",
+    "description": "Capacity Portal",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "engines": {
+        "node": "^20"
+    },
+    "dependencies": {
+        "@test-app/database": "*",
+        "@test-app/foundation": "*",
+        "@test-app/request-handling": "*"
+    },
+    "devDependencies": {
+        "@sap/cds": "~8.2.1",
+        "@sap/cds-dk": "~8.1.1",
+        "@sap/xssec": "^4.2.1",
+        "eslint": "^7.32.0",
+        "express": "^4",
+        "rimraf": "^3.0.2",
+        "sqlite3": "^5"
+    },
+    "scripts": {
+        "start": "cds-serve",
+        "lint": "eslint --ext .js */srv packages",
+        "lint:fix": "eslint --ext .js */srv packages --fix",
+        "clean": "rm -rf mta_archives ./request-handling/gen ./database/gen ./.ps-ppe-capacityportal_mta_build_tmp resources app/**/dist",
+        "undeploy": "cf undeploy test-app --delete-services --delete-service-keys --delete-service-brokers",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+    },
+    "sapux": [],
+    "workspaces": [
+        "./database",
+        "./request-handling",
+        "./packages/*"
+    ]
+}
